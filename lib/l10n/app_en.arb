@@ -1,0 +1,9 @@
+{
+    "la" : "Language",
+    "ar" : "Arabic",
+    "en" : "English",
+    "theme" : "Theme" ,
+    "dark" : "Dark" ,
+    "light" : "Light" ,
+    "appTitle" : "Event Planning"
+}
