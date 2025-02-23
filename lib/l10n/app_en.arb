@@ -9,5 +9,6 @@
     "home" : "Home",
     "map" :"Map",
     "favorite" : "Favorite",
-    "profile" : "Profile"
+    "profile" : "Profile",
+    "welcome" : "Welocome Back"
 }
