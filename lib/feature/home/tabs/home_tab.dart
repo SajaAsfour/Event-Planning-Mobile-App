@@ -3,12 +3,28 @@
 import 'package:flutter/material.dart';
 import 'package:tevent/core/utils/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tevent/core/widget/EventItemWidget.dart';
+import 'package:tevent/core/widget/TabEventWidget.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
   HomeTab({super.key});
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
 
+class _HomeTabState extends State<HomeTab> {
+    int selectedIndex =0;
   @override
   Widget build(BuildContext context) {
+    List<String> eventNameList = [
+      AppLocalizations.of(context)!.all,
+      AppLocalizations.of(context)!.sports,
+      AppLocalizations.of(context)!.birthday,
+      AppLocalizations.of(context)!.gaming,
+      AppLocalizations.of(context)!.meetting,
+      AppLocalizations.of(context)!.workshop,
+      AppLocalizations.of(context)!.eating,
+    ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primaryLight,
@@ -86,27 +102,41 @@ class HomeTab extends StatelessWidget {
                     )
                   ],
                 ),
+                SizedBox(
+                  height: 15,
+                ),
                 DefaultTabController(
-                  length: 3,
-                  child: TabBar(
-                    indicatorColor: AppColors.transparentColor,
-                    dividerColor: AppColors.transparentColor,
-                    isScrollable: true,
-                    tabAlignment: TabAlignment.start,
-                    labelPadding: EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 10
-                    ),
-                    tabs: [
-                      Tab(icon: Icon(Icons.directions_car)),
-                      Tab(icon: Icon(Icons.directions_transit)),
-                      Tab(icon: Icon(Icons.directions_bike)),
-                    ],
-                  ),
-                )
+                    length: eventNameList.length,
+                    child: TabBar(
+                        onTap: (index) {
+                          setState(() {
+                            selectedIndex = index;
+                          });
+                        },
+                        indicatorColor: AppColors.transparentColor,
+                        dividerColor: AppColors.transparentColor,
+                        isScrollable: true,
+                        tabAlignment: TabAlignment.start,
+                        labelPadding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                        tabs: eventNameList.map((eventName) {
+                          return Tabeventwidget(
+                              eventName: eventName,
+                              isSelected: selectedIndex ==
+                                  eventNameList.indexOf(eventName));
+                        }).toList()))
               ],
             ),
           ),
+          Expanded(child: ListView.builder(
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 10
+            ),
+            itemCount: 25,
+            itemBuilder:(context,index){
+              return Eventitemwidget();
+            } ))
         ],
       ),
     );

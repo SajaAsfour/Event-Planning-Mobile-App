@@ -10,5 +10,12 @@
     "map" :"Map",
     "favorite" : "Favorite",
     "profile" : "Profile",
-    "welcome" : "Welocome Back"
+    "welcome" : "Welocome Back",
+    "all" : "All",
+    "sports" :"Sports",
+    "birthday" : "Birthday", 
+    "gaming" :"Gaming",
+    "meetting" : "Meetting",
+    "workshop" : "WorkShop",
+    "eating" : "Eating"
 }
