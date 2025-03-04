@@ -1,8 +1,7 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:tevent/core/utils/app_colors.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Tabeventwidget extends StatelessWidget {
   Tabeventwidget(
