@@ -24,10 +24,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context){
-                return AddEventPage();
-              }));
+          Navigator.pushNamed(context, "/addEvent");
         },
         child: Icon(Icons.add),
       ),
