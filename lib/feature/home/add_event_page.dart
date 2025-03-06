@@ -243,9 +243,7 @@ class _AddEventPageState extends State<AddEventPage> {
                         ),
                         onPressed: () {
                           Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return HomePage();
-                          }));
+                              .pop();
                         },
                         child: Text(
                           "Add Event",
