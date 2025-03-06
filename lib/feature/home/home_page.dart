@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:tevent/feature/home/add_event_page.dart';
 import 'package:tevent/feature/home/tabs/favorite_tab.dart';
 import 'package:tevent/feature/home/tabs/home_tab.dart';
 import 'package:tevent/feature/home/tabs/map_tab.dart';

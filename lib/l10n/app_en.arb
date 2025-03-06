@@ -17,5 +17,16 @@
     "gaming" :"Gaming",
     "meetting" : "Meetting",
     "workshop" : "WorkShop",
-    "eating" : "Eating"
+    "eating" : "Eating" ,
+    "search" : "Search For Event",
+    "create" : "Create Event",
+    "title" : "Title",
+    "eventTitle" : "Event Title",
+    "description" : "Event Description",
+    "date" : "Event Date" ,
+    "chooseDate" :"Choose Date",
+    "time" : "Event Time",
+    "choosetime" : "Choose Time" ,
+    "location" : "choose event location" ,
+    "addEvent" : "Add Event" 
 }

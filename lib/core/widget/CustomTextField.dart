@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:tevent/core/utils/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
   final Color? color;

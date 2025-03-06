@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -6,7 +6,8 @@ import 'package:tevent/core/utils/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tevent/core/widget/CustomTextField.dart';
 import 'package:tevent/core/widget/TabEventWidget1.dart';
-import 'package:tevent/feature/home/home_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 class AddEventPage extends StatefulWidget {
   AddEventPage({super.key});
@@ -36,7 +37,7 @@ class _AddEventPageState extends State<AddEventPage> {
         foregroundColor: AppColors.primaryLight,
         centerTitle: true,
         title: Text(
-          "Create Event",
+          AppLocalizations.of(context)!.create,
           style: TextStyle(
             color: AppColors.primaryLight,
             fontFamily: "Times New Roman",
@@ -89,7 +90,7 @@ class _AddEventPageState extends State<AddEventPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Title",
+                      AppLocalizations.of(context)!.title,
                       style: TextStyle(
                           fontFamily: "Times New Roman", fontSize: 17),
                     ),
@@ -97,7 +98,7 @@ class _AddEventPageState extends State<AddEventPage> {
                       height: 10,
                     ),
                     CustomTextField(
-                      hintText: "Event Title",
+                      hintText: AppLocalizations.of(context)!.eventTitle,
                       prefixIcon: Icon(Icons.edit_square),
                       hintStyle: TextStyle(
                           fontFamily: "Times New Roman",
@@ -108,7 +109,7 @@ class _AddEventPageState extends State<AddEventPage> {
                       height: 10,
                     ),
                     CustomTextField(
-                      hintText: "Event Description",
+                      hintText: AppLocalizations.of(context)!.description,
                       maxLines: 3,
                       color: AppColors.greyColor,
                       hintStyle: TextStyle(
@@ -120,7 +121,7 @@ class _AddEventPageState extends State<AddEventPage> {
                     ),
                     CustomTextField(
                       hintText:
-                          "Event Date", // Hint will be visible when text is empty
+                          AppLocalizations.of(context)!.date, // Hint will be visible when text is empty
                       controller: dateContrller,
                       readOnly: true,
                       prefixIcon: Icon(Icons.calendar_month_rounded),
@@ -140,7 +141,7 @@ class _AddEventPageState extends State<AddEventPage> {
                           }
                         },
                         child: Text(
-                          "Choose Date",
+                          AppLocalizations.of(context)!.chooseDate,
                           style: TextStyle(
                             fontFamily: "Times New Roman",
                             color: AppColors.primaryLight,
@@ -159,7 +160,7 @@ class _AddEventPageState extends State<AddEventPage> {
                     ),
                     CustomTextField(
                       hintText:
-                          "Event Time", // Hint will be visible when text is empty
+                          AppLocalizations.of(context)!.time, // Hint will be visible when text is empty
                       controller: startTimeController,
                       readOnly: true,
                       prefixIcon: Icon(Icons.access_time_rounded),
@@ -172,8 +173,8 @@ class _AddEventPageState extends State<AddEventPage> {
                             if (value != null) {
                               startTimeController.text = value.format(context);
                             }
+                            return null;
                           });
-
                           if (pickedTime != null) {
                             setState(() {
                               startTimeController.text =
@@ -182,7 +183,7 @@ class _AddEventPageState extends State<AddEventPage> {
                           }
                         },
                         child: Text(
-                          "Choose Time",
+                          AppLocalizations.of(context)!.choosetime,
                           style: TextStyle(
                             fontFamily: "Times New Roman",
                             color: AppColors.primaryLight,
@@ -200,7 +201,7 @@ class _AddEventPageState extends State<AddEventPage> {
                       height: 10,
                     ),
                     CustomTextField(
-                      hintText: " choose event location",
+                      hintText: " "+AppLocalizations.of(context)!.location,
                       color: AppColors.primaryLight,
                       hintStyle: TextStyle(
                         fontFamily: "Times New Roman",
@@ -246,7 +247,7 @@ class _AddEventPageState extends State<AddEventPage> {
                               .pop();
                         },
                         child: Text(
-                          "Add Event",
+                          AppLocalizations.of(context)!.addEvent,
                           style: TextStyle(
                               fontFamily: "Times New Roman",
                               color: AppColors.whiteColor),
