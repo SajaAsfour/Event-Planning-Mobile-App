@@ -7,7 +7,8 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData(
     appBarTheme: AppBarTheme(
         backgroundColor: AppColors.primaryLight,
-        foregroundColor: AppColors.primaryDark),
+        foregroundColor: AppColors.primaryDark
+        ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedItemColor: AppColors.primaryDark,
         unselectedItemColor: AppColors.whiteColor,
@@ -24,7 +25,8 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData(
     appBarTheme: AppBarTheme(
         backgroundColor: AppColors.primaryDark,
-        foregroundColor: AppColors.primaryLight),
+        foregroundColor: AppColors.primaryLight
+        ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedItemColor: AppColors.primaryLight,
         unselectedItemColor: AppColors.whiteColor,

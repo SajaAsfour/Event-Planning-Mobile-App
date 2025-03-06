@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tevent/feature/home/add_event_page.dart';
 import 'package:tevent/feature/home/tabs/favorite_tab.dart';
 import 'package:tevent/feature/home/tabs/home_tab.dart';
 import 'package:tevent/feature/home/tabs/map_tab.dart';
@@ -22,7 +23,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context){
+                return AddEventPage();
+              }));
+        },
         child: Icon(Icons.add),
       ),
       body: tabs[selectedIndex],
