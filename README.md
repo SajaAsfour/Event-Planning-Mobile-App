@@ -30,7 +30,8 @@ To run this project locally, you'll need to have the following installed:
 4. **User Profile**: Users can manage their profile and view basic information about their account 👤.
 
 ## Screenshots 📸
--i will add it soon when finishing the project
+
+- I will add it soon when finishing the project
 
 ## Technologies Used ⚙️
 
