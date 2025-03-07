@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tevent/core/providers/app_theme_provider.dart';
 import 'package:tevent/core/utils/app_colors.dart';
 
 class Tabeventwidget1 extends StatelessWidget {
@@ -10,22 +12,25 @@ class Tabeventwidget1 extends StatelessWidget {
   bool isSelected;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
-      padding: EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 5,
-      ),
-      decoration: BoxDecoration(
-        color: isSelected?AppColors.primaryLight:AppColors.whiteColor,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.primaryLight, width: 2),
-      ),
-      child: Text(
-        eventName,
-        style: TextStyle(
-            color: isSelected?AppColors.whiteColor: AppColors.primaryLight, fontFamily: "Times New Roman"),
-      ),
-    );
+    return Consumer<AppThemeProvider>(builder: (context, themeProvider, child) {
+      return
+      Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 5,
+        ),
+        decoration: BoxDecoration(
+          color: isSelected ?themeProvider.app_theme==ThemeMode.dark?AppColors.primaryDark:AppColors.primaryLight : AppColors.whiteColor,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color:themeProvider.app_theme==ThemeMode.dark?AppColors.primaryDark: AppColors.primaryLight, width: 2),
+        ),
+        child: Text(
+          eventName,
+          style: TextStyle(
+              color: isSelected ? AppColors.whiteColor :themeProvider.app_theme==ThemeMode.dark?AppColors.primaryDark: AppColors.primaryLight,
+              fontFamily: "Times New Roman"),
+        ),
+      );
+    });
   }
 }

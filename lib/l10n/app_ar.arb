@@ -28,5 +28,6 @@
     "time" :"اختر الوقت",
     "choosetime": "اختر الوقت",
     "location": "اختر موقع الفعالية",
-    "addEvent": "إضافة فعالية"
+    "addEvent": "إضافة فعالية",
+    "langauge" : "AR"
 }

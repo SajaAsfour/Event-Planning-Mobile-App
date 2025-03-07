@@ -28,5 +28,6 @@
     "time" : "Event Time",
     "choosetime" : "Choose Time" ,
     "location" : "choose event location" ,
-    "addEvent" : "Add Event" 
+    "addEvent" : "Add Event" ,
+    "langauge" : "EN"
 }

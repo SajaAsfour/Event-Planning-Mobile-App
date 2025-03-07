@@ -21,6 +21,7 @@ class AppTheme {
           side: BorderSide(width: 5, color: AppColors.whiteColor),
           borderRadius: BorderRadius.circular(100)),
     ),
+    cardColor: AppColors.primaryLight,
   );
   static final ThemeData darkTheme = ThemeData(
     appBarTheme: AppBarTheme(
@@ -39,5 +40,6 @@ class AppTheme {
           side: BorderSide(width: 5, color: AppColors.whiteColor),
           borderRadius: BorderRadius.circular(100)),
     ),
+    cardColor: AppColors.primaryDark,
   );
 }

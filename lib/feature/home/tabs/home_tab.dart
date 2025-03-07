@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tevent/core/providers/app_theme_provider.dart';
 import 'package:tevent/core/utils/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tevent/core/widget/EventItemWidget.dart';
@@ -13,7 +15,7 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-    int selectedIndex =0;
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     List<String> eventNameList = [
@@ -27,7 +29,6 @@ class _HomeTabState extends State<HomeTab> {
     ];
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primaryLight,
         foregroundColor: AppColors.whiteColor,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,20 +54,33 @@ class _HomeTabState extends State<HomeTab> {
             ),
             Row(
               children: [
-                Icon(Icons.sunny),
+                Consumer<AppThemeProvider>(
+                  builder: (context, themeProvider, child) {
+                    return Icon(
+                      themeProvider.app_theme == ThemeMode.light
+                          ? Icons.wb_sunny // Light theme → Sun icon
+                          : Icons.nightlight_round, // Dark theme → Moon icon
+                      color: Colors.white,
+                    );
+                  },
+                ),
                 SizedBox(
                   width: 5,
                 ),
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: AppColors.whiteColor,
-                  child: Text(
-                    "EN",
-                    style: TextStyle(
-                        color: AppColors.primaryLight,
-                        fontFamily: "Times New Romman"),
-                  ),
-                )
+                Consumer<AppThemeProvider>(
+                    builder: (context, themeProvider, child) {
+                  return CircleAvatar(
+                    radius: 20,
+                    backgroundColor: AppColors.whiteColor,
+                    child: Text(
+                      AppLocalizations.of(context)!.langauge,
+                      style: TextStyle(
+                          color: themeProvider.app_theme==ThemeMode.dark?AppColors.primaryDark:
+                          AppColors.primaryLight,
+                          fontFamily: "Times New Romman"),
+                    ),
+                  );
+                })
               ],
             )
           ],
@@ -78,7 +92,7 @@ class _HomeTabState extends State<HomeTab> {
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             height: 115,
             decoration: BoxDecoration(
-              color: AppColors.primaryLight,
+              color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30)),
@@ -128,15 +142,13 @@ class _HomeTabState extends State<HomeTab> {
               ],
             ),
           ),
-          Expanded(child: ListView.builder(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 10
-            ),
-            itemCount: 25,
-            itemBuilder:(context,index){
-              return Eventitemwidget();
-            } ))
+          Expanded(
+              child: ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  itemCount: 25,
+                  itemBuilder: (context, index) {
+                    return Eventitemwidget();
+                  }))
         ],
       ),
     );
