@@ -5,7 +5,7 @@ This is an Event Management System built using **Flutter** and **Provider** for 
 
 ## Features ✨
 - **Event Display**: Users can view event details such as the event date and description. 📅
-- **Language Support**: The application supports multiple languages (English 🇬🇧 and Arabic 🇸🇦).
+- **Language Support**: The application supports multiple languages (English and Arabic).
 - **Theme Toggle**: Switch between light 🌞 and dark 🌙 themes for better user experience.
 - **User Profiles**: The system includes a profile section where users can view and manage their information 👤.
 - **Tab Navigation**: The app includes 4 main tabs for easy navigation:
