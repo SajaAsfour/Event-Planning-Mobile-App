@@ -7,7 +7,7 @@ import 'package:tevent/core/utils/app_theme.dart';
 import 'package:tevent/feature/home/add_event_page.dart';
 import 'package:tevent/feature/home/home_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:tevent/feature/login/login_page.dart';
+import 'package:tevent/feature/auth/login/login_page.dart';
 import 'core/providers/app_language_provider.dart';
 
 void main() {

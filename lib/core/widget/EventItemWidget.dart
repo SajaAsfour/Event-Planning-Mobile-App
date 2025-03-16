@@ -5,12 +5,20 @@ import 'package:provider/provider.dart';
 import 'package:tevent/core/providers/app_theme_provider.dart';
 import 'package:tevent/core/utils/app_colors.dart';
 
-class Eventitemwidget extends StatelessWidget {
+class Eventitemwidget extends StatefulWidget {
   const Eventitemwidget({super.key});
 
   @override
+  State<Eventitemwidget> createState() => _EventitemwidgetState();
+}
+
+class _EventitemwidgetState extends State<Eventitemwidget> {
+   bool isFav = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Consumer<AppThemeProvider>( // Wrap the entire widget with Consumer
+    return Consumer<AppThemeProvider>(
+      // Wrap the entire widget with Consumer
       builder: (context, themeProvider, child) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 7, vertical: 7),
@@ -18,11 +26,13 @@ class Eventitemwidget extends StatelessWidget {
           height: 260,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/birthday.png"),
-              fit: BoxFit.fill
-            ),
-            border: Border.all(color: themeProvider.app_theme==ThemeMode.dark?
-                    AppColors.primaryDark: AppColors.primaryLight, width: 2),
+                image: AssetImage("assets/images/birthday.png"),
+                fit: BoxFit.fill),
+            border: Border.all(
+                color: themeProvider.app_theme == ThemeMode.dark
+                    ? AppColors.primaryDark
+                    : AppColors.primaryLight,
+                width: 2),
             borderRadius: BorderRadius.circular(25),
           ),
           child: Column(
@@ -60,6 +70,46 @@ class Eventitemwidget extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 130),
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Event Title",
+                          style: TextStyle(
+                              color: themeProvider.app_theme == ThemeMode.dark
+                                  ? AppColors.primaryDark
+                                  : AppColors.primaryLight,
+                              fontFamily: "Times New Roman"),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isFav = !isFav;
+                          });
+                        },
+                        icon: Icon(
+                          isFav ? Icons.favorite : Icons.favorite_border,
+                          color: isFav
+                              ? AppColors.redColor
+                              : themeProvider.app_theme == ThemeMode.dark
+                                  ? AppColors.primaryDark
+                                  : AppColors.primaryLight,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

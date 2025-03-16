@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors_in_immutables, use_super_parameters
 
 import 'package:flutter/material.dart';
 
@@ -15,8 +15,9 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final bool readOnly;
+  final FormFieldValidator<String>? validator; 
 
-   CustomTextField({
+  CustomTextField({
     Key? key,
     this.color,
     required this.hintText,
@@ -25,21 +26,23 @@ class CustomTextField extends StatelessWidget {
     this.labelStyle,
     this.prefixIcon,
     this.suffixIcon,
-    this.readOnly=false,
+    this.readOnly = false,
     this.obscureText = false,
     this.maxLines = 1,
     this.controller,
     this.keyboardType,
+    this.validator, 
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      readOnly:readOnly,
+    return TextFormField( 
+      readOnly: readOnly,
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscureText,
       maxLines: maxLines,
+      validator: validator, 
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: hintStyle,

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:tevent/core/utils/app_colors.dart';
 import 'package:tevent/core/widget/CustomTextField.dart';
+import 'package:tevent/core/widget/custom_eleveted_button.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -63,23 +64,28 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
+              Text(
+                "Forget Password?",
+                style: TextStyle(
+                    fontFamily: "Times New Romman",
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primaryLight,
+                    decoration: TextDecoration.underline,
+                    decorationColor: AppColors.primaryLight,
+                    decorationThickness: 2),
+                textAlign: TextAlign.end,
+              ),
               SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/home');
-                  },
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                        fontFamily: "Times New Roman",
-                        color: AppColors.whiteColor),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryLight,
-                  ),
-                ),
-              )
+                height: 10,
+              ),
+              SizedBox(
+                  width: double.infinity,
+                  child: CustomElevetedButton(
+                      text: "Login",
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, '/home');
+                      }))
             ],
           ),
         ),

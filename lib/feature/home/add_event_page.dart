@@ -7,7 +7,8 @@ import 'package:tevent/core/utils/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:tevent/core/widget/CustomTextField.dart';
 import 'package:tevent/core/widget/TabEventWidget1.dart';
-import 'package:provider/provider.dart'; // Import for Consumer
+import 'package:provider/provider.dart';
+import 'package:tevent/core/widget/custom_eleveted_button.dart'; // Import for Consumer
 
 class AddEventPage extends StatefulWidget {
   AddEventPage({super.key});
@@ -33,7 +34,8 @@ class _AddEventPageState extends State<AddEventPage> {
       AppLocalizations.of(context)!.eating,
     ];
 
-    return Consumer<AppThemeProvider>( // Consumer added to wrap the entire Scaffold
+    return Consumer<AppThemeProvider>(
+      // Consumer added to wrap the entire Scaffold
       builder: (context, themeProvider, child) {
         return Scaffold(
           appBar: AppBar(
@@ -77,11 +79,13 @@ class _AddEventPageState extends State<AddEventPage> {
                     dividerColor: AppColors.transparentColor,
                     isScrollable: true,
                     tabAlignment: TabAlignment.start,
-                    labelPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                    labelPadding:
+                        EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                     tabs: eventNameList.map((eventName) {
                       return Tabeventwidget1(
                         eventName: eventName,
-                        isSelected: selectedIndex == eventNameList.indexOf(eventName),
+                        isSelected:
+                            selectedIndex == eventNameList.indexOf(eventName),
                       );
                     }).toList(),
                   ),
@@ -139,8 +143,8 @@ class _AddEventPageState extends State<AddEventPage> {
                               );
                               if (pickedDate != null) {
                                 setState(() {
-                                  dateContrller.text =
-                                      DateFormat("dd/MM/yyyy").format(pickedDate);
+                                  dateContrller.text = DateFormat("dd/MM/yyyy")
+                                      .format(pickedDate);
                                 });
                               }
                             },
@@ -148,8 +152,9 @@ class _AddEventPageState extends State<AddEventPage> {
                               AppLocalizations.of(context)!.chooseDate,
                               style: TextStyle(
                                 fontFamily: "Times New Roman",
-                                color: themeProvider.app_theme == ThemeMode.dark? AppColors.primaryDark:
-                                AppColors.primaryLight,
+                                color: themeProvider.app_theme == ThemeMode.dark
+                                    ? AppColors.primaryDark
+                                    : AppColors.primaryLight,
                               ),
                             ),
                           ),
@@ -174,14 +179,16 @@ class _AddEventPageState extends State<AddEventPage> {
                                       initialTime: TimeOfDay.now())
                                   .then((value) {
                                 if (value != null) {
-                                  startTimeController.text = value.format(context);
+                                  startTimeController.text =
+                                      value.format(context);
                                 }
                                 return null;
                               });
                               if (pickedTime != null) {
                                 setState(() {
                                   startTimeController.text =
-                                      DateFormat("dd/MM/yyyy").format(pickedTime);
+                                      DateFormat("dd/MM/yyyy")
+                                          .format(pickedTime);
                                 });
                               }
                             },
@@ -189,8 +196,9 @@ class _AddEventPageState extends State<AddEventPage> {
                               AppLocalizations.of(context)!.choosetime,
                               style: TextStyle(
                                 fontFamily: "Times New Roman",
-                                color: themeProvider.app_theme == ThemeMode.dark? AppColors.primaryDark:
-                                AppColors.primaryLight,
+                                color: themeProvider.app_theme == ThemeMode.dark
+                                    ? AppColors.primaryDark
+                                    : AppColors.primaryLight,
                               ),
                             ),
                           ),
@@ -204,21 +212,27 @@ class _AddEventPageState extends State<AddEventPage> {
                           height: 10,
                         ),
                         CustomTextField(
-                          hintText: " " + AppLocalizations.of(context)!.location,
-                          color: themeProvider.app_theme == ThemeMode.dark? AppColors.primaryDark:
-                                AppColors.primaryLight,
+                          hintText:
+                              " " + AppLocalizations.of(context)!.location,
+                          color: themeProvider.app_theme == ThemeMode.dark
+                              ? AppColors.primaryDark
+                              : AppColors.primaryLight,
                           hintStyle: TextStyle(
                             fontFamily: "Times New Roman",
-                            color: themeProvider.app_theme == ThemeMode.dark? AppColors.primaryDark:
-                                AppColors.primaryLight,
+                            color: themeProvider.app_theme == ThemeMode.dark
+                                ? AppColors.primaryDark
+                                : AppColors.primaryLight,
                           ),
                           prefixIcon: Padding(
-                            padding: EdgeInsets.only(left: 8, top: 3, bottom: 3),
+                            padding:
+                                EdgeInsets.only(left: 8, top: 3, bottom: 3),
                             child: Container(
                               width: 20,
                               decoration: BoxDecoration(
-                                  color: themeProvider.app_theme == ThemeMode.dark? AppColors.primaryDark:
-                                AppColors.primaryLight,
+                                  color:
+                                      themeProvider.app_theme == ThemeMode.dark
+                                          ? AppColors.primaryDark
+                                          : AppColors.primaryLight,
                                   borderRadius: BorderRadius.circular(10)),
                               child: Icon(
                                 Icons.my_location_rounded,
@@ -230,8 +244,9 @@ class _AddEventPageState extends State<AddEventPage> {
                             onPressed: () {},
                             icon: Icon(
                               Icons.arrow_forward_ios_outlined,
-                              color: themeProvider.app_theme == ThemeMode.dark? AppColors.primaryDark:
-                                AppColors.primaryLight,
+                              color: themeProvider.app_theme == ThemeMode.dark
+                                  ? AppColors.primaryDark
+                                  : AppColors.primaryLight,
                             ),
                           ),
                           readOnly: true,
@@ -241,23 +256,11 @@ class _AddEventPageState extends State<AddEventPage> {
                         ),
                         SizedBox(
                           width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: themeProvider.app_theme == ThemeMode.dark? AppColors.primaryDark:
-                                AppColors.primaryLight,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
+                          child: CustomElevetedButton(
+                            text: AppLocalizations.of(context)!.addEvent,
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: Text(
-                              AppLocalizations.of(context)!.addEvent,
-                              style: TextStyle(
-                                  fontFamily: "Times New Roman",
-                                  color: AppColors.whiteColor),
-                            ),
                           ),
                         )
                       ],
