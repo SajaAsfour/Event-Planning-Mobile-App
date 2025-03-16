@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tevent/core/providers/app_theme_provider.dart';
+import 'package:tevent/core/providers/favorite_provider.dart';
 import 'package:tevent/core/utils/app_theme.dart';
 import 'package:tevent/feature/home/add_event_page.dart';
 import 'package:tevent/feature/home/home_page.dart';
@@ -12,15 +13,16 @@ import 'core/providers/app_language_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-Future <void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
+  );
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (contex) => AppLanguageProvider()),
-      ChangeNotifierProvider(create: (contex) => AppThemeProvider())
+      ChangeNotifierProvider(create: (contex) => AppThemeProvider()),
+      ChangeNotifierProvider(create: (context) => FavoriteProvider()),
     ],
     child: MainApp(),
   ));
@@ -44,8 +46,8 @@ class MainApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => LoginPage(),
-        '/home':(context) => HomePage(),
-        '/addEvent' : (context) => AddEventPage()
+        '/home': (context) => HomePage(),
+        '/addEvent': (context) => AddEventPage()
       },
     );
   }

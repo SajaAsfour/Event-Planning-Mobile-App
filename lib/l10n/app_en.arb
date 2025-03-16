@@ -29,5 +29,6 @@
     "choosetime" : "Choose Time" ,
     "location" : "choose event location" ,
     "addEvent" : "Add Event" ,
-    "langauge" : "EN"
+    "langauge" : "EN" ,
+    "noFavorites" :"No favorite events yet!"
 }

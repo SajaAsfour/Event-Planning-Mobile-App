@@ -29,5 +29,6 @@
     "choosetime": "اختر الوقت",
     "location": "اختر موقع الفعالية",
     "addEvent": "إضافة فعالية",
-    "langauge" : "AR"
+    "langauge" : "AR",
+    "noFavorites": "لا توجد فعاليات مفضلة حتى الآن!"
 }
