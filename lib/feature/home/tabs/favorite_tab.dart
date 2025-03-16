@@ -46,7 +46,9 @@ class FavoriteTab extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     itemCount: 25,
                     itemBuilder: (context, index) {
-                      return Eventitemwidget();
+                      return Eventitemwidget(
+                        event: null,
+                      );
                     }),
               ),
             ],

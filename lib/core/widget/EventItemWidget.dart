@@ -1,19 +1,22 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tevent/core/providers/app_theme_provider.dart';
 import 'package:tevent/core/utils/app_colors.dart';
 
 class Eventitemwidget extends StatefulWidget {
-  const Eventitemwidget({super.key});
+  final dynamic event;
+
+  Eventitemwidget({super.key, required this.event});
 
   @override
   State<Eventitemwidget> createState() => _EventitemwidgetState();
 }
 
 class _EventitemwidgetState extends State<Eventitemwidget> {
-   bool isFav = false;
+  bool isFav = false;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,8 @@ class _EventitemwidgetState extends State<Eventitemwidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "22",
+                      DateFormat("dd").format(DateFormat("dd/MM/yyyy")
+                          .parse(widget.event['dateTime'])),
                       style: TextStyle(
                         color: themeProvider.app_theme == ThemeMode.dark
                             ? AppColors.primaryDark
@@ -59,7 +63,8 @@ class _EventitemwidgetState extends State<Eventitemwidget> {
                       ),
                     ),
                     Text(
-                      "Feb.",
+                      DateFormat("MMM").format(DateFormat("dd/MM/yyyy")
+                          .parse(widget.event['dateTime'])),
                       style: TextStyle(
                         color: themeProvider.app_theme == ThemeMode.dark
                             ? AppColors.primaryDark
@@ -85,7 +90,7 @@ class _EventitemwidgetState extends State<Eventitemwidget> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          "Event Title",
+                          widget.event["title"],
                           style: TextStyle(
                               color: themeProvider.app_theme == ThemeMode.dark
                                   ? AppColors.primaryDark

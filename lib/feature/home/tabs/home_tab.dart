@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tevent/core/providers/app_theme_provider.dart';
@@ -16,6 +17,19 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   int selectedIndex = 0;
+  List eventList = [];
+  @override
+  void initState() {
+    super.initState();
+    getAllEvents();
+  }
+  void getAllEvents()async{
+     var events =await FirebaseFirestore.instance.collection('Events').get();
+     eventList = events.docs;
+     setState(() {
+       
+     });
+  }
   @override
   Widget build(BuildContext context) {
     List<String> eventNameList = [
@@ -145,9 +159,11 @@ class _HomeTabState extends State<HomeTab> {
           Expanded(
               child: ListView.builder(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  itemCount: 25,
+                  itemCount: eventList.length,
                   itemBuilder: (context, index) {
-                    return Eventitemwidget();
+                    return Eventitemwidget(
+                      event: eventList[index],
+                    );
                   }))
         ],
       ),
