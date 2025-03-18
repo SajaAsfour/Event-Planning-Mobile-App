@@ -10,7 +10,7 @@ class FirebaseUtils {
         .collection(EventModel.collectionName)
         .withConverter<EventModel>(
           fromFirestore: (snapshot, _) =>
-              EventModel.fromFirsStore(snapshot.data()!),
+              EventModel.fromFireStore(snapshot.data()!),
           toFirestore: (event, _) => event.toFireStore(),
         );
   }

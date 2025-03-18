@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -42,41 +44,52 @@ class _EventitemwidgetState extends State<Eventitemwidget> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                decoration: BoxDecoration(
-                  color: AppColors.whiteColor,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      DateFormat("dd").format(DateFormat("dd/MM/yyyy")
-                          .parse(widget.event.dateTime)),
-                      style: TextStyle(
-                        color: themeProvider.app_theme == ThemeMode.dark
-                            ? AppColors.primaryDark
-                            : AppColors.primaryLight,
-                        fontFamily: "Times New Roman",
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                    decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                    Text(
-                      DateFormat("MMM").format(DateFormat("dd/MM/yyyy")
-                          .parse(widget.event.dateTime)),
-                      style: TextStyle(
-                        color: themeProvider.app_theme == ThemeMode.dark
-                            ? AppColors.primaryDark
-                            : AppColors.primaryLight,
-                        fontFamily: "Times New Roman",
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          DateFormat("dd").format(DateFormat("dd/MM/yyyy")
+                              .parse(widget.event.dateTime)),
+                          style: TextStyle(
+                            color: themeProvider.app_theme == ThemeMode.dark
+                                ? AppColors.primaryDark
+                                : AppColors.primaryLight,
+                            fontFamily: "Times New Roman",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          DateFormat("MMM").format(DateFormat("dd/MM/yyyy")
+                              .parse(widget.event.dateTime)),
+                          style: TextStyle(
+                            color: themeProvider.app_theme == ThemeMode.dark
+                                ? AppColors.primaryDark
+                                : AppColors.primaryLight,
+                            fontFamily: "Times New Roman",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.delete,
+                        color: AppColors.whiteColor,
+                      ))
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 130),
@@ -100,18 +113,19 @@ class _EventitemwidgetState extends State<Eventitemwidget> {
                         ),
                       ),
                       IconButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          await widget.event.updateFavoriteStatus();
                           setState(() {
-                            isFav = !isFav;
+                            widget.event.isFav = !widget.event.isFav;
                           });
                         },
                         icon: Icon(
-                          isFav ? Icons.favorite : Icons.favorite_border,
-                          color: isFav
-                              ? AppColors.redColor
-                              : themeProvider.app_theme == ThemeMode.dark
-                                  ? AppColors.primaryDark
-                                  : AppColors.primaryLight,
+                          widget.event.isFav
+                              ? Icons.favorite
+                              : Icons.favorite_border,
+                          color: widget.event.isFav
+                              ? widget.event.FavColor
+                              : widget.event.NotFavColor,
                         ),
                       ),
                     ],
