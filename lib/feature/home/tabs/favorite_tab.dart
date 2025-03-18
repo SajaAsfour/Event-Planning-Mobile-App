@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tevent/core/providers/app_theme_provider.dart';
-import 'package:tevent/core/providers/favorite_provider.dart';
 import 'package:tevent/core/utils/app_colors.dart';
 import 'package:tevent/core/widget/CustomTextField.dart';
 import 'package:tevent/core/widget/EventItemWidget.dart';
@@ -14,72 +13,48 @@ class FavoriteTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<AppThemeProvider, FavoriteProvider>(
-      builder: (context, themeProvider, favoriteProvider, child) {
-        final favoriteEvents = favoriteProvider.favoriteEvents;
-
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: AppColors.whiteColor,
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                CustomTextField(
-                  hintText: AppLocalizations.of(context)!.search,
-                  hintStyle: TextStyle(fontFamily: "Times New Roman"),
-                  labelText: AppLocalizations.of(context)!.search,
-                  labelStyle: TextStyle(
+    return Consumer<AppThemeProvider>(builder: (context, themeProvider, child) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.whiteColor,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              CustomTextField(
+                hintText: AppLocalizations.of(context)!.search,
+                hintStyle: TextStyle(
+                  fontFamily: "Times New Roman",
+                ),
+                labelText: AppLocalizations.of(context)!.search,
+                labelStyle: TextStyle(
                     fontFamily: "Times New Roman",
-                    color: themeProvider.app_theme == ThemeMode.dark
-                        ? AppColors.primaryDark
-                        : AppColors.primaryLight,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: themeProvider.app_theme == ThemeMode.dark
-                        ? AppColors.primaryDark
-                        : AppColors.primaryLight,
-                  ),
-                  color: themeProvider.app_theme == ThemeMode.dark
-                      ? AppColors.primaryDark
-                      : AppColors.primaryLight,
+                    color:themeProvider.app_theme==ThemeMode.dark?
+                    AppColors.primaryDark: AppColors.primaryLight,
+                    fontWeight: FontWeight.bold),
+                prefixIcon: Icon(
+                  Icons.search,
+                  color: themeProvider.app_theme==ThemeMode.dark?
+                    AppColors.primaryDark: AppColors.primaryLight,
                 ),
-                Expanded(
-                  child: favoriteEvents.isEmpty
-                      ? Center(
-                          child: Text(
-                            AppLocalizations.of(context)!.noFavorites,
-                            style: TextStyle(
-                              fontFamily: "Times New Roman",
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: themeProvider.app_theme == ThemeMode.dark
-                                  ? AppColors.primaryDark
-                                  : AppColors.primaryLight,
-                            ),
-                          ),
-                        )
-                      : ListView.builder(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          itemCount: favoriteEvents.length,
-                          itemBuilder: (context, index) {
-                            final event = favoriteEvents[index];
-                            return Eventitemwidget(
-                              event: event,
-                              
-                            );
-                          },
-                        ),
-                ),
-              ],
-            ),
+                color: themeProvider.app_theme==ThemeMode.dark?
+                    AppColors.primaryDark: AppColors.primaryLight,
+              ),
+              //Expanded(
+               // child: ListView.builder(
+               //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                //    itemCount: 25,
+                //    itemBuilder: (context, index) {
+                //      return Eventitemwidget(
+                 //       event: ,
+                 //     );
+                //    }),
+            //  ),
+            ],
           ),
-        );
-      },
-    );
+        ),
+      );
+    });
   }
 }

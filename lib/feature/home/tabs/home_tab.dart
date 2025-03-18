@@ -3,9 +3,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tevent/core/models/event_model.dart';
 import 'package:tevent/core/providers/app_theme_provider.dart';
 import 'package:tevent/core/utils/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tevent/core/utils/firebase_utils.dart';
 import 'package:tevent/core/widget/EventItemWidget.dart';
 import 'package:tevent/core/widget/TabEventWidget.dart';
 
@@ -23,13 +25,18 @@ class _HomeTabState extends State<HomeTab> {
     super.initState();
     getAllEvents();
   }
-  void getAllEvents()async{
-     var events =await FirebaseFirestore.instance.collection('Events').get();
-     eventList = events.docs;
-     setState(() {
-       
-     });
+
+  void getAllEvents() async {
+    QuerySnapshot<EventModel> query =
+        await FirebaseUtils.getEventCollection().get();
+    eventList = query.docs.map(
+      (doc) {
+        return doc.data();
+      },
+    ).toList();
+    setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     List<String> eventNameList = [
@@ -89,8 +96,9 @@ class _HomeTabState extends State<HomeTab> {
                     child: Text(
                       AppLocalizations.of(context)!.langauge,
                       style: TextStyle(
-                          color: themeProvider.app_theme==ThemeMode.dark?AppColors.primaryDark:
-                          AppColors.primaryLight,
+                          color: themeProvider.app_theme == ThemeMode.dark
+                              ? AppColors.primaryDark
+                              : AppColors.primaryLight,
                           fontFamily: "Times New Romman"),
                     ),
                   );

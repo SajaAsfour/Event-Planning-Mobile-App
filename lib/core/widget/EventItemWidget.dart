@@ -3,38 +3,40 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:tevent/core/models/event_model.dart';
 import 'package:tevent/core/providers/app_theme_provider.dart';
-import 'package:tevent/core/providers/favorite_provider.dart';
 import 'package:tevent/core/utils/app_colors.dart';
 
-class Eventitemwidget extends StatelessWidget {
-  final dynamic event;
+class Eventitemwidget extends StatefulWidget {
+  final EventModel event;
 
   Eventitemwidget({super.key, required this.event});
 
   @override
-  Widget build(BuildContext context) {
-    final themeProvider = Provider.of<AppThemeProvider>(context);
-    
-    return Consumer<FavoriteProvider>(
-      builder: (context, favoriteProvider, child) {
-        bool isFav = favoriteProvider.isFavorite(event);
+  State<Eventitemwidget> createState() => _EventitemwidgetState();
+}
 
+class _EventitemwidgetState extends State<Eventitemwidget> {
+  bool isFav = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AppThemeProvider>(
+      // Wrap the entire widget with Consumer
+      builder: (context, themeProvider, child) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 7, vertical: 7),
           margin: EdgeInsets.only(bottom: 20),
           height: 260,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/birthday.png"),
-              fit: BoxFit.fill,
-            ),
+                image: AssetImage("assets/images/birthday.png"),
+                fit: BoxFit.fill),
             border: Border.all(
-              color: themeProvider.app_theme == ThemeMode.dark
-                  ? AppColors.primaryDark
-                  : AppColors.primaryLight,
-              width: 2,
-            ),
+                color: themeProvider.app_theme == ThemeMode.dark
+                    ? AppColors.primaryDark
+                    : AppColors.primaryLight,
+                width: 2),
             borderRadius: BorderRadius.circular(25),
           ),
           child: Column(
@@ -50,9 +52,8 @@ class Eventitemwidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      DateFormat("dd").format(
-                        DateFormat("dd/MM/yyyy").parse(event['dateTime']),
-                      ),
+                      DateFormat("dd").format(DateFormat("dd/MM/yyyy")
+                          .parse(widget.event.dateTime)),
                       style: TextStyle(
                         color: themeProvider.app_theme == ThemeMode.dark
                             ? AppColors.primaryDark
@@ -63,9 +64,8 @@ class Eventitemwidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      DateFormat("MMM").format(
-                        DateFormat("dd/MM/yyyy").parse(event['dateTime']),
-                      ),
+                      DateFormat("MMM").format(DateFormat("dd/MM/yyyy")
+                          .parse(widget.event.dateTime)),
                       style: TextStyle(
                         color: themeProvider.app_theme == ThemeMode.dark
                             ? AppColors.primaryDark
@@ -78,42 +78,44 @@ class Eventitemwidget extends StatelessWidget {
                   ],
                 ),
               ),
-              Spacer(),
-              Container(
-                height: 40,
-                decoration: BoxDecoration(
-                  color: AppColors.whiteColor,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        event["title"],
-                        style: TextStyle(
-                          color: themeProvider.app_theme == ThemeMode.dark
-                              ? AppColors.primaryDark
-                              : AppColors.primaryLight,
-                          fontFamily: "Times New Roman",
+              Padding(
+                padding: const EdgeInsets.only(top: 130),
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: AppColors.whiteColor,
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          widget.event.title,
+                          style: TextStyle(
+                              color: themeProvider.app_theme == ThemeMode.dark
+                                  ? AppColors.primaryDark
+                                  : AppColors.primaryLight,
+                              fontFamily: "Times New Roman"),
                         ),
                       ),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        isFav ? Icons.favorite : Icons.favorite_border,
-                        color: isFav
-                            ? AppColors.redColor
-                            : themeProvider.app_theme == ThemeMode.dark
-                                ? AppColors.primaryDark
-                                : AppColors.primaryLight,
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isFav = !isFav;
+                          });
+                        },
+                        icon: Icon(
+                          isFav ? Icons.favorite : Icons.favorite_border,
+                          color: isFav
+                              ? AppColors.redColor
+                              : themeProvider.app_theme == ThemeMode.dark
+                                  ? AppColors.primaryDark
+                                  : AppColors.primaryLight,
+                        ),
                       ),
-                      onPressed: () {
-                        favoriteProvider.toggleFavorite(event);
-                      },
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

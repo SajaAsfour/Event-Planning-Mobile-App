@@ -1,11 +1,14 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, use_build_context_synchronously
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tevent/core/models/event_model.dart';
 import 'package:tevent/core/providers/app_theme_provider.dart';
 import 'package:tevent/core/utils/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:tevent/core/utils/firebase_utils.dart';
 import 'package:tevent/core/widget/CustomTextField.dart';
 import 'package:tevent/core/widget/TabEventWidget1.dart';
 import 'package:provider/provider.dart';
@@ -297,16 +300,19 @@ class _AddEventPageState extends State<AddEventPage> {
       },
     );
   }
-  Future<void> addEvents() {
-      var events = FirebaseFirestore.instance.collection('Events');
-      return events
-          .add({
-            'title': titleController.text, 
-            'description': descriptionContrller.text, 
-            'dateTime': dateContrller.text,
-            'time' : startTimeController.text
-          })
-          .then((value) => print("Event Added"))
-          .catchError((error) => print("Failed to add event: $error"));
+  Future<void> addEvents() async{
+    var event = EventModel(
+      title: titleController.text, 
+      description: descriptionContrller.text, 
+      dateTime: dateContrller.text, 
+      time: startTimeController.text);
+
+    try{
+      await FirebaseUtils.addEventsToFirebase(event);
+      log("event added");
+    }
+    catch(e){
+      log("error adding event :  $e");
+    }
     }
 }
