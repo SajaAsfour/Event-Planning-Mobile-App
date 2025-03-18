@@ -76,4 +76,18 @@ class EventModel {
   }
 }
 
+Future<void> deleteDoc() async {
+  try {
+    
+    await FirebaseFirestore.instance
+        .collection(EventModel.collectionName)
+        .doc(id).delete();
+
+    // Ensure local state is also updated
+    log("Doc deleted successfully!");
+  } catch (e) {
+    log("Error deletting doc: $e");
+  }
+}
+
 }

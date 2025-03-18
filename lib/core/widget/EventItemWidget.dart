@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -84,7 +82,9 @@ class _EventitemwidgetState extends State<Eventitemwidget> {
                     ),
                   ),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () async{
+                        await widget.event.deleteDoc();
+                      },
                       icon: Icon(
                         Icons.delete,
                         color: AppColors.whiteColor,
