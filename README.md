@@ -1,40 +1,41 @@
-# Event Management System 🎉
+# Event Management System 🎉  
 
-## Overview 📝
-This is an Event Management System built using **Flutter** and **Provider** for state management. The project is designed to manage and display events, allowing users to view upcoming events, manage event details, and switch between different themes (light and dark mode). The system aims to provide a seamless experience for event organizers and participants.
+## Overview 📝  
+This is an Event Management System built using **Flutter** with **Provider** for state management and **Firebase (Cloud Firestore)** for data storage. The app allows users to view upcoming events, manage event details, and switch between light and dark themes. The goal is to provide a seamless experience for event organizers and participants.  
 
-## Features ✨
-- **Event Display**: Users can view event details such as the event date and description. 📅
-- **Language Support**: The application supports multiple languages (English and Arabic).
-- **Theme Toggle**: Switch between light 🌞 and dark 🌙 themes for better user experience.
-- **User Profiles**: The system includes a profile section where users can view and manage their information 👤.
-- **Tab Navigation**: The app includes 4 main tabs for easy navigation:
-  - **Home Tab**: Displays a list of upcoming events and general information about the system. 🏠
-  - **Favorite Tab**: Users can save their favorite events for quick access. ❤️
-  - **Map Tab**: View the location of events on a map for better planning. 🗺️
-  - **Profile Tab**: Manage user information and preferences, such as theme and language settings. 👤
+## Features ✨  
+- **Event Management with Firebase**: Add, update, delete, and retrieve events using **Cloud Firestore**. 🔥  
+- **Event Display**: Users can view event details such as date and description. 📅  
+- **Language Support**: The app supports multiple languages, including English and Arabic. 🌍  
+- **Theme Toggle**: Users can switch between light 🌞 and dark 🌙 themes.  
+- **User Profiles**: Users can manage their personal information within the app. 👤  
+- **Tab Navigation**: The app includes four main tabs:  
+  - **Home Tab**: Displays a list of upcoming events and general system information. 🏠  
+  - **Favorite Tab**: Allows users to save favorite events for quick access. ❤️  
+  - **Map Tab**: Shows event locations on a map for better planning. 🗺️  
+  - **Profile Tab**: Users can manage their information and settings, such as theme and language preferences. 👤  
 
-### Prerequisites 📦
-To run this project locally, you'll need to have the following installed:
+## Prerequisites 📦  
+To run this project locally, ensure you have the following installed:  
+- **Flutter (latest version)** 🌐  
+- **Dart** 🖥️  
+- **Android Studio / VSCode (with Flutter and Dart plugins)** 🔧  
+- **Firebase set up and integrated with the project** 🔥  
+- **Emulator or real device for testing** 📱  
 
-- Flutter (latest version) 🌐
-- Dart 🖥️
-- Android Studio / VSCode (with Flutter and Dart plugins) 🔧
-- Emulator or a real device for testing 📱
+## Usage 🎬  
+1. **Add and Update Events**: Users can add new events or modify existing ones using Firebase. 🔄  
+2. **View Events**: Events are retrieved from **Cloud Firestore** and displayed in the app. 📅  
+3. **Delete Events**: Users can remove events directly from the app. ❌  
+4. **User Settings**: Change the app language and theme 🌞🌙 .  
 
-## Usage 🎬
+## Screenshots 📸  
+(Screenshots will be added upon project completion)  
 
-1. **View Events**: Navigate to the Events screen to see a list of upcoming events. 📅
-2. **Change Language**: The language of the app can be switched between English 🇬🇧 and Arabic 🇸🇦 from the settings section in the profile tab.
-3. **Change Theme**: Toggle between light 🌞 and dark 🌙 themes from the settings section to adjust the visual style of the app.
-4. **User Profile**: Users can manage their profile and view basic information about their account 👤.
+## Technologies Used ⚙️  
+- **Flutter**: For building the cross-platform mobile application 📱  
+- **Provider**: For state management 🔄  
+- **Firebase (Cloud Firestore)**: For storing and managing event data 🔥  
+- **Dart**: The programming language used for development 🖥️  
 
-## Screenshots 📸
-
-- I will add it soon when finishing the project
-
-## Technologies Used ⚙️
-
-- **Flutter**: For building the cross-platform mobile application 📱.
-- **Provider**: For state management 🔄.
-- **Dart**: For the programming language used to develop the app 🖥️.
+---
