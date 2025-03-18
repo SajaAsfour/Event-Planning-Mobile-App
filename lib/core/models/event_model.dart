@@ -8,6 +8,7 @@ class EventModel {
   String dateTime;
   String time;
   bool isFav;
+  String eventName;
 
   EventModel({
     this.id ='',
@@ -15,6 +16,7 @@ class EventModel {
     required this.dateTime,
     required this.description,
     required this.time,
+    required this.eventName,
     this.isFav =false
   });
 
@@ -26,7 +28,8 @@ class EventModel {
       'dateTime' :dateTime,
       'description' : description,
       'time' : time,
-      'isFav' :isFav
+      'isFav' :isFav,
+      'eventName' :eventName
     };
   }
 
@@ -37,6 +40,7 @@ class EventModel {
     description: data['description'],
     time: data['time'],
     isFav: data['isFav'],
+    eventName: data['eventName']
   );
 
 }

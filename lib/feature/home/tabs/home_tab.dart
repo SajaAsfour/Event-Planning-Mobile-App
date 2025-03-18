@@ -28,8 +28,25 @@ class _HomeTabState extends State<HomeTab> {
 
   void getAllEvents() async {
     QuerySnapshot<EventModel> query =
-        await FirebaseUtils.getEventCollection().get();
+        await FirebaseUtils.getEventCollection().orderBy('dateTime').get();
     eventList = query.docs.map(
+      (doc) {
+        return doc.data();
+      },
+    ).toList();
+    setState(() {});
+  }
+
+  void getFilterEvents( String filterEvent) async{
+    Query <EventModel> query =
+      await FirebaseUtils.getEventCollection();
+
+    if (filterEvent != 'All'){
+      query = query.where("eventName" , isEqualTo: filterEvent);
+    }
+
+    var events = await query.get();
+    eventList = events.docs.map(
       (doc) {
         return doc.data();
       },
@@ -147,6 +164,7 @@ class _HomeTabState extends State<HomeTab> {
                         onTap: (index) {
                           setState(() {
                             selectedIndex = index;
+                            getFilterEvents(eventNameList[index]);
                           });
                         },
                         indicatorColor: AppColors.transparentColor,

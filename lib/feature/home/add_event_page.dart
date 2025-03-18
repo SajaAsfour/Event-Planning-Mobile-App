@@ -30,7 +30,7 @@ class _AddEventPageState extends State<AddEventPage> {
   var formKey = GlobalKey<FormState>();
   DateTime? selectedDate;
   TimeOfDay? selectedTime;
-
+  String selectedEvent = '';
   @override
   Widget build(BuildContext context) {
     List<String> eventNameList = [
@@ -82,6 +82,7 @@ class _AddEventPageState extends State<AddEventPage> {
                     onTap: (index) {
                       setState(() {
                         selectedIndex = index;
+                        selectedEvent = eventNameList[index];
                       });
                     },
                     indicatorColor: AppColors.transparentColor,
@@ -280,7 +281,7 @@ class _AddEventPageState extends State<AddEventPage> {
                             width: double.infinity,
                             child: CustomElevetedButton(
                               text: AppLocalizations.of(context)!.addEvent,
-                              onPressed: () async{
+                              onPressed: () async {
                                 if (formKey.currentState!.validate()) {
                                   await addEvents();
                                   Navigator.pushNamed(context, '/home');
@@ -300,19 +301,21 @@ class _AddEventPageState extends State<AddEventPage> {
       },
     );
   }
-  Future<void> addEvents() async{
-    var event = EventModel(
-      title: titleController.text, 
-      description: descriptionContrller.text, 
-      dateTime: dateContrller.text, 
-      time: startTimeController.text);
 
-    try{
+  Future<void> addEvents() async {
+    var event = EventModel(
+      title: titleController.text,
+      description: descriptionContrller.text,
+      dateTime: dateContrller.text,
+      time: startTimeController.text,
+      eventName: selectedEvent,
+    );
+
+    try {
       await FirebaseUtils.addEventsToFirebase(event);
       log("event added");
-    }
-    catch(e){
+    } catch (e) {
       log("error adding event :  $e");
     }
-    }
+  }
 }
