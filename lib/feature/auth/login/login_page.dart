@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tevent/core/utils/app_colors.dart';
 import 'package:tevent/core/widget/CustomTextField.dart';
 import 'package:tevent/core/widget/custom_eleveted_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -83,17 +84,41 @@ class LoginPage extends StatelessWidget {
                       color: AppColors.primaryLight),
                 ),
                 SizedBox(height: 15),
-                Text(
-                  "Forget Password?",
-                  style: TextStyle(
-                      fontFamily: "Times New Roman",
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.primaryLight,
-                      decoration: TextDecoration.underline,
-                      decorationColor: AppColors.primaryLight,
-                      decorationThickness: 2),
-                  textAlign: TextAlign.end,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Forget Password?",
+                      style: TextStyle(
+                          fontFamily: "Times New Roman",
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primaryLight,
+                          decoration: TextDecoration.underline,
+                          decorationColor: AppColors.primaryLight,
+                          decorationThickness: 2),
+                      textAlign: TextAlign.end,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/register');
+                      },
+                      child: Text(
+                        "Do not have an account?",
+                        style: TextStyle(
+                          fontFamily: "Times New Roman",
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primaryLight,
+                          decoration: TextDecoration.underline,
+                          decorationColor: AppColors.primaryLight,
+                          decorationThickness: 2,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                  ],
                 ),
                 SizedBox(height: 10),
                 SizedBox(
@@ -102,7 +127,7 @@ class LoginPage extends StatelessWidget {
                     text: "Login",
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        Navigator.pushReplacementNamed(context, '/home');
+                        login(context);
                       }
                     },
                   ),
@@ -113,5 +138,19 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void login(BuildContext context) async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text, password: passwordController.text);
+      Navigator.pushReplacementNamed(context, '/home');
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tevent/core/providers/app_theme_provider.dart';
 import 'package:tevent/core/utils/app_theme.dart';
+import 'package:tevent/feature/auth/register/register_page.dart';
 import 'package:tevent/feature/home/add_event_page.dart';
 import 'package:tevent/feature/home/home_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -45,7 +46,8 @@ class MainApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginPage(),
         '/home': (context) => HomePage(),
-        '/addEvent': (context) => AddEventPage()
+        '/addEvent': (context) => AddEventPage(),
+        '/register' : (contex) => RegisterPage()
       },
     );
   }

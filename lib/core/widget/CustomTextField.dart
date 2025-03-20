@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.maxLines = 1,
     this.controller,
-    this.keyboardType,
+    this.keyboardType = TextInputType.text,
     this.validator, 
   }) : super(key: key);
 
