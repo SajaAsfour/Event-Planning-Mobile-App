@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:async';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:tevent/core/utils/app_colors.dart';
 
 class EventModel {
   static const String collectionName = "Events";
-
+  final StreamController<bool> _favController = StreamController<bool>.broadcast();
   String id;
   String title;
   String description;
@@ -30,6 +31,7 @@ class EventModel {
     this.FavColor = AppColors.redColor,
   });
 
+    Stream<bool> get favStream => _favController.stream;
   // Convert object to Firestore-compatible JSON
   Map<String, dynamic> toFireStore() {
     return {
@@ -68,13 +70,19 @@ class EventModel {
         .doc(id)
         .update({'isFav': newFavStatus});
 
-    // Ensure local state is also updated
+    // update the state
     isFav = newFavStatus;
+    _favController.add(isFav); 
     log("Favorite status updated successfully!");
   } catch (e) {
     log("Error updating favorite status: $e");
   }
 }
+
+  // colse the StreamController 
+  void dispose() {
+    _favController.close();
+  }
 
 Future<void> deleteDoc() async {
   try {

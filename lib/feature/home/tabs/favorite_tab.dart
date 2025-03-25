@@ -13,18 +13,17 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class FavoriteTab extends StatelessWidget {
   FavoriteTab({super.key});
 
-  Future<List<EventModel>> getFavoriteEvents() async {
-    QuerySnapshot<Map<String, dynamic>> querySnapshot = await FirebaseFirestore
-        .instance
+  Stream<List<EventModel>> getFavoriteEvents() {
+    return FirebaseFirestore.instance
         .collection(EventModel.collectionName)
         .where("isFav", isEqualTo: true)
-        .get();
-
-    return querySnapshot.docs
-        .map((doc) => EventModel.fromFireStore(doc.data()))
-        .toList();
+        .snapshots()
+        .map((querySnapshot) {
+      return querySnapshot.docs
+          .map((doc) => EventModel.fromFireStore(doc.data()))
+          .toList();
+    });
   }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<AppThemeProvider>(
@@ -61,8 +60,8 @@ class FavoriteTab extends StatelessWidget {
                       : AppColors.primaryLight,
                 ),
                 Expanded(
-                  child: FutureBuilder<List<EventModel>>(
-                    future: getFavoriteEvents(),
+                  child: StreamBuilder<List<EventModel>>(
+                    stream: getFavoriteEvents(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(child: CircularProgressIndicator());

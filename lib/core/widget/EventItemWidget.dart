@@ -82,7 +82,7 @@ class _EventitemwidgetState extends State<Eventitemwidget> {
                     ),
                   ),
                   IconButton(
-                      onPressed: () async{
+                      onPressed: () async {
                         await widget.event.deleteDoc();
                       },
                       icon: Icon(
@@ -112,21 +112,23 @@ class _EventitemwidgetState extends State<Eventitemwidget> {
                               fontFamily: "Times New Roman"),
                         ),
                       ),
-                      IconButton(
-                        onPressed: () async {
-                          await widget.event.updateFavoriteStatus();
-                          setState(() {
-                            widget.event.isFav = !widget.event.isFav;
-                          });
+                      StreamBuilder<bool>(
+                        stream: widget.event.favStream,
+                        initialData: widget.event.isFav, 
+                        builder: (context, snapshot) {
+                          bool isFav = snapshot.data ?? false;
+                          return IconButton(
+                            onPressed: () async {
+                              await widget.event.updateFavoriteStatus();
+                            },
+                            icon: Icon(
+                              isFav ? Icons.favorite : Icons.favorite_border,
+                              color: isFav
+                                  ? widget.event.FavColor
+                                  : widget.event.NotFavColor,
+                            ),
+                          );
                         },
-                        icon: Icon(
-                          widget.event.isFav
-                              ? Icons.favorite
-                              : Icons.favorite_border,
-                          color: widget.event.isFav
-                              ? widget.event.FavColor
-                              : widget.event.NotFavColor,
-                        ),
                       ),
                     ],
                   ),
