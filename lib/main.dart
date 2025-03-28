@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tevent/core/providers/app_theme_provider.dart';
+import 'package:tevent/core/providers/event_proivder.dart';
 import 'package:tevent/core/utils/app_theme.dart';
 import 'package:tevent/feature/auth/register/register_page.dart';
 import 'package:tevent/feature/home/add_event_page.dart';
@@ -22,6 +23,7 @@ Future<void> main() async {
     providers: [
       ChangeNotifierProvider(create: (contex) => AppLanguageProvider()),
       ChangeNotifierProvider(create: (contex) => AppThemeProvider()),
+      ChangeNotifierProvider(create: (contex)=> EventProvider())
     ],
     child: MainApp(),
   ));

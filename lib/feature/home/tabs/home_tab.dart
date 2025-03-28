@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables, await_only_futures
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tevent/core/models/event_model.dart';
 import 'package:tevent/core/providers/app_theme_provider.dart';
+import 'package:tevent/core/providers/event_proivder.dart';
 import 'package:tevent/core/utils/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:tevent/core/utils/firebase_utils.dart';
 import 'package:tevent/core/widget/EventItemWidget.dart';
 import 'package:tevent/core/widget/TabEventWidget.dart';
 
@@ -19,39 +17,12 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   int selectedIndex = 0;
-  List eventList = [];
+
   @override
   void initState() {
     super.initState();
-    getAllEvents();
-  }
-
-  void getAllEvents() async {
-    QuerySnapshot<EventModel> query =
-        await FirebaseUtils.getEventCollection().orderBy('dateTime').get();
-    eventList = query.docs.map(
-      (doc) {
-        return doc.data();
-      },
-    ).toList();
-    setState(() {});
-  }
-
-  void getFilterEvents( String filterEvent) async{
-    Query <EventModel> query =
-      await FirebaseUtils.getEventCollection();
-
-    if (filterEvent != 'All'){
-      query = query.where("eventName" , isEqualTo: filterEvent);
-    }
-
-    var events = await query.get();
-    eventList = events.docs.map(
-      (doc) {
-        return doc.data();
-      },
-    ).toList();
-    setState(() {});
+    // Fetch all events when the tab is initialized
+    Provider.of<EventProvider>(context, listen: false).getAllEvents();
   }
 
   @override
@@ -102,11 +73,8 @@ class _HomeTabState extends State<HomeTab> {
                     );
                   },
                 ),
-                SizedBox(
-                  width: 5,
-                ),
-                Consumer<AppThemeProvider>(
-                    builder: (context, themeProvider, child) {
+                SizedBox(width: 5),
+                Consumer<AppThemeProvider>(builder: (context, themeProvider, child) {
                   return CircleAvatar(
                     radius: 20,
                     backgroundColor: AppColors.whiteColor,
@@ -116,7 +84,7 @@ class _HomeTabState extends State<HomeTab> {
                           color: themeProvider.app_theme == ThemeMode.dark
                               ? AppColors.primaryDark
                               : AppColors.primaryLight,
-                          fontFamily: "Times New Romman"),
+                          fontFamily: "Times New Roman"),
                     ),
                   );
                 })
@@ -155,42 +123,60 @@ class _HomeTabState extends State<HomeTab> {
                     )
                   ],
                 ),
-                SizedBox(
-                  height: 15,
-                ),
+                SizedBox(height: 15),
                 DefaultTabController(
                     length: eventNameList.length,
                     child: TabBar(
                         onTap: (index) {
                           setState(() {
                             selectedIndex = index;
-                            getFilterEvents(eventNameList[index]);
                           });
+                          // Fetch filtered events when tab changes
+                          if (eventNameList[index] == AppLocalizations.of(context)!.all) {
+                            Provider.of<EventProvider>(context, listen: false).getAllEvents();
+                          } else {
+                            Provider.of<EventProvider>(context, listen: false)
+                                .getFilterEvents(eventNameList[index],);
+                          }
                         },
                         indicatorColor: AppColors.transparentColor,
                         dividerColor: AppColors.transparentColor,
                         isScrollable: true,
                         tabAlignment: TabAlignment.start,
-                        labelPadding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                        labelPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                         tabs: eventNameList.map((eventName) {
                           return Tabeventwidget(
                               eventName: eventName,
-                              isSelected: selectedIndex ==
-                                  eventNameList.indexOf(eventName));
+                              isSelected: selectedIndex == eventNameList.indexOf(eventName));
                         }).toList()))
               ],
             ),
           ),
           Expanded(
-              child: ListView.builder(
+            child: Consumer<EventProvider>(
+              builder: (context, eventProvider, child) {
+                if (eventProvider.events.isEmpty) {
+                  return Center(
+                    child: Text(
+                      "No events available!",
+                      style: TextStyle(
+                        fontFamily: "Times New Roman",
+                        fontSize: 20,
+                        color: AppColors.primaryLight,
+                      ),
+                    ),
+                  );
+                }
+                return ListView.builder(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  itemCount: eventList.length,
+                  itemCount: eventProvider.events.length,
                   itemBuilder: (context, index) {
-                    return Eventitemwidget(
-                      event: eventList[index],
-                    );
-                  }))
+                    return EventItemWidget(event: eventProvider.events[index]);
+                  },
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

@@ -1,19 +1,16 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, use_build_context_synchronously
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tevent/core/models/event_model.dart';
 import 'package:tevent/core/providers/app_theme_provider.dart';
+import 'package:tevent/core/providers/event_proivder.dart';
 import 'package:tevent/core/utils/app_colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:tevent/core/utils/firebase_utils.dart';
 import 'package:tevent/core/widget/CustomTextField.dart';
 import 'package:tevent/core/widget/TabEventWidget1.dart';
 import 'package:provider/provider.dart';
-import 'package:tevent/core/widget/custom_eleveted_button.dart'; // Import for Consumer
-
+import 'package:tevent/core/widget/custom_eleveted_button.dart'; 
 class AddEventPage extends StatefulWidget {
   AddEventPage({super.key});
 
@@ -252,7 +249,7 @@ class _AddEventPageState extends State<AddEventPage> {
                               child: Container(
                                 width: 20,
                                 decoration: BoxDecoration(
-                                    color: themeProvider.app_theme ==
+                                    color: themeProvider.app_theme == 
                                             ThemeMode.dark
                                         ? AppColors.primaryDark
                                         : AppColors.primaryLight,
@@ -283,7 +280,17 @@ class _AddEventPageState extends State<AddEventPage> {
                               text: AppLocalizations.of(context)!.addEvent,
                               onPressed: () async {
                                 if (formKey.currentState!.validate()) {
-                                  await addEvents();
+                                  // Create the event object
+                                  var event = EventModel(
+                                    title: titleController.text,
+                                    description: descriptionContrller.text,
+                                    dateTime: dateContrller.text,
+                                    time: startTimeController.text,
+                                    eventName: selectedEvent,
+                                  );
+
+                                  // Call the addEvent method from the EventProvider
+                                  await context.read<EventProvider>().addEvent(event);
                                   Navigator.pushNamed(context, '/home');
                                 }
                               },
@@ -300,22 +307,5 @@ class _AddEventPageState extends State<AddEventPage> {
         );
       },
     );
-  }
-
-  Future<void> addEvents() async {
-    var event = EventModel(
-      title: titleController.text,
-      description: descriptionContrller.text,
-      dateTime: dateContrller.text,
-      time: startTimeController.text,
-      eventName: selectedEvent,
-    );
-
-    try {
-      await FirebaseUtils.addEventsToFirebase(event);
-      log("event added");
-    } catch (e) {
-      log("error adding event :  $e");
-    }
   }
 }
